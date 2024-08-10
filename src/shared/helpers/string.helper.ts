@@ -8,6 +8,9 @@ export const isValidPhoneNumber = (phoneNumber: string): boolean => {
   return regex.test(phoneNumber)
 }
 
+export const isValidString = (value: string): boolean => {
+  return value !== '' && value !== undefined && value !== null
+}
 
 export const obfuscateValue = (object: any): object => {
   const valuesToBeObfuscated = ['password']
