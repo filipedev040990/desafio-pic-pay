@@ -1,4 +1,5 @@
-import { ControllerInterface, HttpRequest } from '@/domain/contracts/controllers/controller.interface'
+import { HttpRequest } from '@/adapters/dtos/controller.dto'
+import { ControllerInterface } from '@/domain/interfaces/controllers/controller.interface'
 import { Request, Response } from 'express'
 
 export const expressRouteAdapter = (controller: ControllerInterface) => {
