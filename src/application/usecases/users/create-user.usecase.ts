@@ -1,7 +1,7 @@
 import { CreateUserUseCaseInputDTO, CreateUserUseCaseOutputDTO } from '@/adapters/dtos/user.dto'
 import { UserEntity } from '@/domain/entities/user.entity'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
-import { CryptographyInterface } from '@/domain/interfaces/tools/cryptography.interface'
+import { CryptographyInterface } from '@/domain/interfaces/services/cryptography.interface'
 import { CreateUserUseCaseInterface } from '@/domain/interfaces/usecases/users/create-user-usecase.interface'
 import { InvalidParamError } from '@/shared/errors'
 

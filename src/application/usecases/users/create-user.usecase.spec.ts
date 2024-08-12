@@ -1,7 +1,7 @@
 import { CreateUserRepositoryOutputDTO, CreateUserUseCaseInputDTO } from '@/adapters/dtos/user.dto'
 import { CreateUserUseCase } from './create-user.usecase'
 import { UserEntity } from '@/domain/entities/user.entity'
-import { CryptographyInterface } from '@/domain/interfaces/tools/cryptography.interface'
+import { CryptographyInterface } from '@/domain/interfaces/services/cryptography.interface'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { InvalidParamError } from '@/shared/errors'
 import { mock } from 'jest-mock-extended'
