@@ -1,4 +1,4 @@
-import { HttpResponse } from '@/shared/types'
+import { HttpResponse } from '@/adapters/dtos/controller.dto'
 import { logger } from './logger.helper'
 
 export const success = (statusCode: number, body: any): HttpResponse => ({
