@@ -2,10 +2,6 @@ import { InvalidParamError, MissingParamError } from '@/shared/errors'
 import { UserEntity } from './user.entity'
 import MockDate from 'mockdate'
 
-jest.mock('crypto', () => ({
-  randomUUID: jest.fn().mockReturnValue('AnyId')
-}))
-
 describe('UserEntity', () => {
   let sut: any
   let input: any
@@ -13,6 +9,7 @@ describe('UserEntity', () => {
   beforeEach(() => {
     sut = UserEntity
     input = {
+      id: 'AnyId',
       type: 'consumer',
       name: 'Any Name',
       document: 'anyDocument',
@@ -27,6 +24,11 @@ describe('UserEntity', () => {
 
   afterAll(() => {
     MockDate.reset()
+  })
+
+  test('should throws if id is not provided', () => {
+    input.id = undefined
+    expect(() => sut.build(input)).toThrowError(new MissingParamError('id'))
   })
 
   test('should throws if name is not provided', () => {

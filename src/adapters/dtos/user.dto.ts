@@ -9,6 +9,10 @@ export type CreateUserUseCaseInputDTO = UserBaseDTO & {
   password: string
 }
 
+export type BuildEntityDTO = CreateUserUseCaseInputDTO & {
+  id: string
+}
+
 export type CreateUserUseCaseOutputDTO = UserBaseDTO & {
   id: string
   createdAt: Date

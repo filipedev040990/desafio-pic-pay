@@ -1,8 +1,7 @@
-import { CreateUserUseCaseInputDTO } from '@/adapters/dtos/user.dto'
+import { BuildEntityDTO } from '@/adapters/dtos/user.dto'
 import constants from '@/shared/constants'
 import { InvalidParamError, MissingParamError } from '@/shared/errors'
 import { isValidEmail, isValidString } from '@/shared/helpers/string.helper'
-import { randomUUID } from 'crypto'
 
 export class UserEntity {
   constructor (
@@ -16,13 +15,13 @@ export class UserEntity {
     public updatedAt: Date
   ) {}
 
-  public static build (input: CreateUserUseCaseInputDTO): UserEntity {
+  public static build (input: BuildEntityDTO): UserEntity {
     this.validate(input)
     return this.create(input)
   }
 
-  private static validate (input: CreateUserUseCaseInputDTO): void {
-    const requiredFields: Array<keyof CreateUserUseCaseInputDTO> = ['name', 'type', 'document', 'email', 'password']
+  private static validate (input: BuildEntityDTO): void {
+    const requiredFields: Array<keyof BuildEntityDTO> = ['id', 'name', 'type', 'document', 'email', 'password']
     for (const field of requiredFields) {
       if (!isValidString(input[field])) {
         throw new MissingParamError(field)
@@ -38,10 +37,8 @@ export class UserEntity {
     }
   }
 
-  private static create (input: CreateUserUseCaseInputDTO): UserEntity {
-    const { name, type, document, email, password } = input
-    const id = randomUUID()
-    const now = new Date()
-    return new UserEntity(id, name, type, document, email, password, now, now)
+  private static create (input: BuildEntityDTO): UserEntity {
+    const { id, name, type, document, email, password } = input
+    return new UserEntity(id, name, type, document, email, password, new Date(), new Date())
   }
 }

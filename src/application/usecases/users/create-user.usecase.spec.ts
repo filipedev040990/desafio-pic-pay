@@ -1,14 +1,16 @@
 import { CreateUserRepositoryOutputDTO, CreateUserUseCaseInputDTO } from '@/adapters/dtos/user.dto'
 import { CreateUserUseCase } from './create-user.usecase'
 import { UserEntity } from '@/domain/entities/user.entity'
-import { CryptographyInterface } from '@/domain/interfaces/services/cryptography.interface'
+import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { InvalidParamError } from '@/shared/errors'
 import { mock } from 'jest-mock-extended'
 import MockDate from 'mockdate'
+import { UUIDServiceInterface } from '@/domain/interfaces/services/uuid-service.interface'
 
-const cryptographyService = mock<CryptographyInterface>()
+const cryptographyService = mock<CryptographyServiceInterface>()
 const repository = mock<UserRepositoryInterface>()
+const uuidService = mock<UUIDServiceInterface>()
 
 describe('CreateUserUseCase', () => {
   let sut: CreateUserUseCase
@@ -17,7 +19,7 @@ describe('CreateUserUseCase', () => {
   let fakeUser: CreateUserRepositoryOutputDTO
 
   beforeEach(() => {
-    sut = new CreateUserUseCase(cryptographyService, repository)
+    sut = new CreateUserUseCase(cryptographyService, repository, uuidService)
     input = {
       name: 'João da Silva',
       type: 'consumer',
@@ -26,7 +28,7 @@ describe('CreateUserUseCase', () => {
       password: 'anyPassword'
     }
     newUser = {
-      id: '123456',
+      id: 'anyId',
       name: 'João da Silva',
       type: 'consumer',
       document: '78965441236',
@@ -36,7 +38,7 @@ describe('CreateUserUseCase', () => {
       updatedAt: new Date()
     }
     fakeUser = {
-      id: '123456',
+      id: 'anyId',
       name: 'João da Silva',
       type: 'consumer',
       document: '78965441236',
@@ -45,6 +47,7 @@ describe('CreateUserUseCase', () => {
     }
 
     cryptographyService.encrypt.mockReturnValue('hashedValue')
+    uuidService.generate.mockReturnValue('anyId')
     repository.getByEmail.mockResolvedValue(null)
     repository.getByDocument.mockResolvedValue(null)
     repository.save.mockResolvedValue(fakeUser)
@@ -65,6 +68,7 @@ describe('CreateUserUseCase', () => {
     await sut.execute(input)
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith({
+      id: 'anyId',
       name: 'João da Silva',
       type: 'consumer',
       document: '78965441236',
@@ -107,7 +111,7 @@ describe('CreateUserUseCase', () => {
     await sut.execute(input)
     expect(repository.save).toHaveBeenCalledTimes(1)
     expect(repository.save).toHaveBeenCalledWith({
-      id: '123456',
+      id: 'anyId',
       name: 'João da Silva',
       type: 'consumer',
       document: '78965441236',
@@ -121,7 +125,7 @@ describe('CreateUserUseCase', () => {
   test('should return a correct output on success', async () => {
     const output = await sut.execute(input)
     expect(output).toEqual({
-      id: '123456',
+      id: 'anyId',
       name: 'João da Silva',
       type: 'consumer',
       document: '78965441236',
