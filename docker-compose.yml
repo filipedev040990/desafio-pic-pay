@@ -1,9 +1,9 @@
 services:
-  project_name:
+  desafio_pic_pay:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: "project_name"
+    container_name: "desafio_pic_pay"
     restart: always
     ports:
       - 3000:3000
