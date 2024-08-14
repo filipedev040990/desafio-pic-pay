@@ -73,7 +73,7 @@ describe('CreateUserUseCase', () => {
       type: 'consumer',
       document: '78965441236',
       email: 'joao@gmail.com',
-      password: 'hashedValue'
+      password: 'anyPassword'
     })
   })
 

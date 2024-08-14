@@ -20,8 +20,10 @@ export class CreateUserUseCase implements CreateUserUseCaseInterface {
       document: input.document,
       type: input.type,
       email: input.email,
-      password: this.cryptographyService.encrypt(input.password)
+      password: input.password
     })
+
+    user.password = this.cryptographyService.encrypt(input.password)
 
     await this.ensureEmailIsUnique(user.email)
     await this.ensureDocumentIsUnique(user.document)
