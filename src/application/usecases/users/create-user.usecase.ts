@@ -1,4 +1,4 @@
-import { CreateUserUseCaseInputDTO, CreateUserUseCaseOutputDTO } from '@/adapters/dtos/user.dto'
+import { CreateUserUseCaseInputDTO, UserOutputDTO } from '@/adapters/dtos/user.dto'
 import { UserEntity } from '@/domain/entities/user.entity'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
@@ -13,7 +13,7 @@ export class CreateUserUseCase implements CreateUserUseCaseInterface {
     private readonly uuidService: UUIDServiceInterface
   ) {}
 
-  async execute (input: CreateUserUseCaseInputDTO): Promise<CreateUserUseCaseOutputDTO> {
+  async execute (input: CreateUserUseCaseInputDTO): Promise<UserOutputDTO> {
     const user = UserEntity.build({
       id: this.uuidService.generate(),
       name: input.name,

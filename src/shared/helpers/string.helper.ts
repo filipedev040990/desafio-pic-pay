@@ -9,7 +9,7 @@ export const isValidPhoneNumber = (phoneNumber: string): boolean => {
 }
 
 export const isValidString = (value: string): boolean => {
-  return value !== '' && value !== undefined && value !== null
+  return typeof value === 'string' && value !== '' && value !== undefined && value !== null
 }
 
 export const obfuscateValue = (object: any): object => {

@@ -1,5 +1,5 @@
-import { CreateUserUseCaseInputDTO, CreateUserUseCaseOutputDTO } from '@/adapters/dtos/user.dto'
+import { CreateUserUseCaseInputDTO, UserOutputDTO } from '@/adapters/dtos/user.dto'
 
 export interface CreateUserUseCaseInterface {
-  execute: (input: CreateUserUseCaseInputDTO) => Promise<CreateUserUseCaseOutputDTO>
+  execute: (input: CreateUserUseCaseInputDTO) => Promise<UserOutputDTO>
 }

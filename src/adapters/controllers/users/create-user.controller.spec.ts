@@ -1,7 +1,7 @@
 import { HttpRequest } from '@/adapters/dtos/controller.dto'
 import { CreateUserController } from './create-user.controller'
 import { CreateUserUseCaseInterface } from '@/domain/interfaces/usecases/users/create-user-usecase.interface'
-import { CreateUserUseCaseOutputDTO } from '@/adapters/dtos/user.dto'
+import { UserOutputDTO } from '@/adapters/dtos/user.dto'
 import { InvalidParamError } from '@/shared/errors'
 import { badRequest } from '@/shared/helpers/http.helper'
 import { mock } from 'jest-mock-extended'
@@ -11,7 +11,7 @@ const usecase = mock<CreateUserUseCaseInterface>()
 describe('CreateUserController', () => {
   let sut: CreateUserController
   let input: HttpRequest
-  let usecaseResponse: CreateUserUseCaseOutputDTO
+  let usecaseResponse: UserOutputDTO
   beforeEach(() => {
     sut = new CreateUserController(usecase)
     input = {
