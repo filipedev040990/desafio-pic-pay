@@ -19,7 +19,7 @@
 		}
 	],
 	"paths": {
-		"/route/test": {
+		"/user": {
 			"post": {
 				"tags": [
 					"Users"
@@ -33,10 +33,30 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "test": {
+                  "type": {
                     "type": "string",
-                    "example": "example",
-                    "description": "Description example."
+                    "example": "consumer",
+                    "description": "Define o tipo de usuário. Os tipos permitidos são consumer e merchant"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Joãozinho da Silva",
+                    "description": "Nome do usuário"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "joao@gmail.com",
+                    "description": "E-mail do usuário"
+                  },
+                  "document": {
+                    "type": "string",
+                    "example": "41578965412",
+                    "description": "Documento do usuário"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "senhaDificil@123456",
+                    "description": "Senha do usuário"
                   }
                 }
               }
@@ -57,23 +77,19 @@
 										},
                     "type": {
                       "type": "string",
-                      "example": "email"
+                      "example": "customer"
                     },
-                    "recipient": {
+                    "name": {
                       "type": "string",
-                      "example": "zedascouves@gmail.com"
+                      "example": "Joãozinho da Silva"
                     },
-                    "content": {
+                    "email": {
                       "type": "string",
-                      "example": "Notificação de Teste"
+                      "example": "joao@gmail.com"
                     },
-                    "status": {
+                    "document": {
                       "type": "string",
-                      "example": "waiting"
-                    },
-                    "scheduleDateHour": {
-                      "type": "string",
-                      "example": "2024-08-09 10:31:00"
+                      "example": "41578965412"
                     },
                     "createdAt": {
                       "type": "string",
@@ -113,155 +129,155 @@
 					}
 				}
 			}
-		},
-    "/route/get/{id}": {
-      "post": {
-        "tags": [
-          "Example"
-        ],
-        "operationId": "examnple-identifier",
-        "summary": "Summary example",
-        "description": "Description Example",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-                    },
-                    "test": {
-                      "type": "string",
-                      "example": "email"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Erro de validação da solicitação",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "InvalidParamError",
-                  "message": "Invalid param: id"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "error"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/route": {
-      "get": {
-        "tags": [
-          "Example"
-        ],
-        "operationId": "get-all-example-identifier",
-        "summary": "Example",
-        "description": "Example",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "oneOf": [{
-                      "type": "object",
-                      "properties": {
-                        "test": {
-                          "type": "string",
-                          "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-                        }
-                      }
-                    },{
-                      "type": "object",
-                      "properties": {
-                        "test": {
-                          "type": "string",
-                          "example": "d4a2fa1d-8428-40ca-bfa1-0326e2a97ad2"
-                        }
-                      }
-                    }]
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Erro de validação da solicitação",
-            "content": {
-              "application/json": {
-                "example": {
-                  "error": "InvalidParamError",
-                  "message": "Invalid param: id"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "error"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+		}
+    // "/route/get/{id}": {
+    //   "post": {
+    //     "tags": [
+    //       "Example"
+    //     ],
+    //     "operationId": "examnple-identifier",
+    //     "summary": "Summary example",
+    //     "description": "Description Example",
+    //     "parameters": [
+    //       {
+    //         "in": "path",
+    //         "name": "id",
+    //         "required": true,
+    //         "schema": {
+    //           "type": "string",
+    //           "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
+    //         }
+    //       }
+    //     ],
+    //     "responses": {
+    //       "200": {
+    //         "description": "Sucesso",
+    //         "content": {
+    //           "application/json": {
+    //             "schema": {
+    //               "type": "object",
+    //               "properties": {
+    //                 "id": {
+    //                   "type": "string",
+    //                   "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
+    //                 },
+    //                 "test": {
+    //                   "type": "string",
+    //                   "example": "email"
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
+    //       },
+    //       "400": {
+    //         "description": "Erro de validação da solicitação",
+    //         "content": {
+    //           "application/json": {
+    //             "example": {
+    //               "error": "InvalidParamError",
+    //               "message": "Invalid param: id"
+    //             }
+    //           }
+    //         }
+    //       },
+    //       "500": {
+    //         "description": "Error",
+    //         "content": {
+    //           "application/json": {
+    //             "schema": {
+    //               "type": "object",
+    //               "properties": {
+    //                 "status": {
+    //                   "type": "string",
+    //                   "example": "error"
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // },
+    // "/route": {
+    //   "get": {
+    //     "tags": [
+    //       "Example"
+    //     ],
+    //     "operationId": "get-all-example-identifier",
+    //     "summary": "Example",
+    //     "description": "Example",
+    //     "parameters": [
+    //       {
+    //         "in": "path",
+    //         "name": "id",
+    //         "required": true,
+    //         "schema": {
+    //           "type": "string",
+    //           "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
+    //         }
+    //       }
+    //     ],
+    //     "responses": {
+    //       "200": {
+    //         "description": "Sucesso",
+    //         "content": {
+    //           "application/json": {
+    //             "schema": {
+    //               "type": "array",
+    //               "items": {
+    //                 "oneOf": [{
+    //                   "type": "object",
+    //                   "properties": {
+    //                     "test": {
+    //                       "type": "string",
+    //                       "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
+    //                     }
+    //                   }
+    //                 },{
+    //                   "type": "object",
+    //                   "properties": {
+    //                     "test": {
+    //                       "type": "string",
+    //                       "example": "d4a2fa1d-8428-40ca-bfa1-0326e2a97ad2"
+    //                     }
+    //                   }
+    //                 }]
+    //               }
+    //             }
+    //           }
+    //         }
+    //       },
+    //       "400": {
+    //         "description": "Erro de validação da solicitação",
+    //         "content": {
+    //           "application/json": {
+    //             "example": {
+    //               "error": "InvalidParamError",
+    //               "message": "Invalid param: id"
+    //             }
+    //           }
+    //         }
+    //       },
+    //       "500": {
+    //         "description": "Error",
+    //         "content": {
+    //           "application/json": {
+    //             "schema": {
+    //               "type": "object",
+    //               "properties": {
+    //                 "status": {
+    //                   "type": "string",
+    //                   "example": "error"
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 	}
 }

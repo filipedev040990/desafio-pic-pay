@@ -2,11 +2,11 @@
 
 ✅Entidade
 
-⛔Cadastrar
-⛔Usecase
-⛔Controller
-⛔Repository
-⛔Factories
+✅Cadastrar
+✅Usecase
+✅Controller
+✅Repository
+✅Factories
 
 ⛔Atualizar
 ⛔Usecase
