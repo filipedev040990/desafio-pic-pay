@@ -1,4 +1,4 @@
-import { CreateUserRepositoryInputDTO, UserRepositoryOutputDTO } from '@/adapters/dtos/user.dto'
+import { CreateUserRepositoryInputDTO, UpdateUserRepositoryInputDTO, UserRepositoryOutputDTO } from '@/adapters/dtos/user.dto'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { prismaClient } from './prisma-client'
 import { UserEntity } from '@/domain/entities/user.entity'
@@ -19,12 +19,29 @@ export class UserRepository implements UserRepositoryInterface {
     return this.mapModelToEntity(user)
   }
 
+  async getById (id: string): Promise<UserRepositoryOutputDTO | null> {
+    const user = await prismaClient.user.findFirst({ where: { id } })
+    return this.mapModelToEntity(user)
+  }
+
+  async update (input: UpdateUserRepositoryInputDTO): Promise<UserRepositoryOutputDTO> {
+    const { id, ...data } = input
+    const user = await prismaClient.user.update({
+      where: {
+        id
+      },
+      data
+    })
+
+    return this.mapModelToEntity(user)!
+  }
+
   mapModelToEntity (user: UserEntity | null): UserRepositoryOutputDTO | null {
-    if(!user) {
+    if (!user) {
       return null
     }
 
-    return {
+    const output: UserRepositoryOutputDTO = {
       id: user.id,
       type: user.type,
       name: user.name,
@@ -32,5 +49,11 @@ export class UserRepository implements UserRepositoryInterface {
       email: user.email,
       createdAt: user.createdAt
     }
+
+    if (user.updatedAt) {
+      output.updatedAt = user.updatedAt
+    }
+
+    return output
   }
 }
