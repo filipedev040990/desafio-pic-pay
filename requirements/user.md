@@ -8,11 +8,11 @@
 ✅Repository
 ✅Factories
 
-⛔Atualizar
-⛔Usecase
-⛔Controller
-⛔Repository
-⛔Factories
+✅Atualizar
+✅Usecase
+✅Controller
+✅Repository
+✅Factories
 
 ⛔Listar por ID
 ⛔Usecase
