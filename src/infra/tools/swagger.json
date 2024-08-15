@@ -129,77 +129,128 @@
 					}
 				}
 			}
-		}
-    // "/route/get/{id}": {
-    //   "post": {
-    //     "tags": [
-    //       "Example"
-    //     ],
-    //     "operationId": "examnple-identifier",
-    //     "summary": "Summary example",
-    //     "description": "Description Example",
-    //     "parameters": [
-    //       {
-    //         "in": "path",
-    //         "name": "id",
-    //         "required": true,
-    //         "schema": {
-    //           "type": "string",
-    //           "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-    //         }
-    //       }
-    //     ],
-    //     "responses": {
-    //       "200": {
-    //         "description": "Sucesso",
-    //         "content": {
-    //           "application/json": {
-    //             "schema": {
-    //               "type": "object",
-    //               "properties": {
-    //                 "id": {
-    //                   "type": "string",
-    //                   "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-    //                 },
-    //                 "test": {
-    //                   "type": "string",
-    //                   "example": "email"
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       },
-    //       "400": {
-    //         "description": "Erro de validação da solicitação",
-    //         "content": {
-    //           "application/json": {
-    //             "example": {
-    //               "error": "InvalidParamError",
-    //               "message": "Invalid param: id"
-    //             }
-    //           }
-    //         }
-    //       },
-    //       "500": {
-    //         "description": "Error",
-    //         "content": {
-    //           "application/json": {
-    //             "schema": {
-    //               "type": "object",
-    //               "properties": {
-    //                 "status": {
-    //                   "type": "string",
-    //                   "example": "error"
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // },
+		},
+    "/user/{id}": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+				"operationId": "update-user-identifier",
+				"summary": "Atualizar um usuário",
+				"description": "Rota para atualização dos dados de usuários da API",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Joãozinho da Silva",
+                    "description": "Nome do usuário"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "joao@gmail.com",
+                    "description": "E-mail do usuário"
+                  },
+                  "document": {
+                    "type": "string",
+                    "example": "41578965412",
+                    "description": "Documento do usuário"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "senhaDificil@123456",
+                    "description": "Senha do usuário"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+					"200": {
+						"description": "Sucesso",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"example": "3b228995-20db-4558-8574-054c2e6ca0cb"
+										},
+                    "type": {
+                      "type": "string",
+                      "example": "customer"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Joãozinho da Silva"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "joao@gmail.com"
+                    },
+                    "document": {
+                      "type": "string",
+                      "example": "41578965412"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2024-08-09T13:29:18.435Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2024-08-09T13:29:18.435Z"
+                    }
+									}
+								}
+							}
+						}
+					},
+          "400": {
+            "description": "Erro de validação da solicitação",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "MissingParamError",
+                  "message": "Missing param: id"
+                }
+              }
+            }
+          },
+					"500": {
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "error"
+										}
+									}
+								}
+							}
+						}
+					}
+        }
+      }
+    }
     // "/route": {
     //   "get": {
     //     "tags": [
