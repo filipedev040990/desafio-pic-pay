@@ -23,4 +23,4 @@ export type CreateUserRepositoryInputDTO = CreateUserUseCaseOutputDTO & {
   updatedAt: Date
 }
 
-export type CreateUserRepositoryOutputDTO = CreateUserUseCaseOutputDTO
+export type UserRepositoryOutputDTO = CreateUserUseCaseOutputDTO

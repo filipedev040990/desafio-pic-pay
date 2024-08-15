@@ -1,7 +1,7 @@
-import { CreateUserRepositoryInputDTO, CreateUserRepositoryOutputDTO } from '@/adapters/dtos/user.dto'
+import { CreateUserRepositoryInputDTO, UserRepositoryOutputDTO } from '@/adapters/dtos/user.dto'
 
 export interface UserRepositoryInterface {
-  save: (input: CreateUserRepositoryInputDTO) => Promise<CreateUserRepositoryOutputDTO>
-  getByEmail: (email: string) => Promise<CreateUserRepositoryOutputDTO | null>
-  getByDocument: (document: string) => Promise<CreateUserRepositoryOutputDTO | null>
+  save: (input: CreateUserRepositoryInputDTO) => Promise<UserRepositoryOutputDTO>
+  getByEmail: (email: string) => Promise<UserRepositoryOutputDTO | null>
+  getByDocument: (document: string) => Promise<UserRepositoryOutputDTO | null>
 }

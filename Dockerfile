@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --loglevel verbose --no-optional
+RUN npm install --loglevel verbose
 
 RUN apt-get update
 

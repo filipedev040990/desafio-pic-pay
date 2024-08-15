@@ -1,4 +1,4 @@
-import { CreateUserRepositoryOutputDTO, CreateUserUseCaseInputDTO } from '@/adapters/dtos/user.dto'
+import { UserRepositoryOutputDTO, CreateUserUseCaseInputDTO } from '@/adapters/dtos/user.dto'
 import { CreateUserUseCase } from './create-user.usecase'
 import { UserEntity } from '@/domain/entities/user.entity'
 import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
@@ -16,7 +16,7 @@ describe('CreateUserUseCase', () => {
   let sut: CreateUserUseCase
   let input: CreateUserUseCaseInputDTO
   let newUser: UserEntity
-  let fakeUser: CreateUserRepositoryOutputDTO
+  let fakeUser: UserRepositoryOutputDTO
 
   beforeEach(() => {
     sut = new CreateUserUseCase(cryptographyService, repository, uuidService)
