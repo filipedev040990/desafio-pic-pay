@@ -1,5 +1,5 @@
 import { CreateUserUseCaseInputDTO, UserOutputDTO } from '@/adapters/dtos/user.dto'
-import { UserEntity } from '@/domain/entities/user.entity'
+import { UserEntity } from '@/domain/entities/user/user.entity'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
 import { UUIDServiceInterface } from '@/domain/interfaces/services/uuid-service.interface'

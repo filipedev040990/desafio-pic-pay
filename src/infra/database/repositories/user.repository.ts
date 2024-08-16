@@ -1,7 +1,7 @@
 import { CreateUserRepositoryInputDTO, UpdateUserRepositoryInputDTO, UserRepositoryOutputDTO } from '@/adapters/dtos/user.dto'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { prismaClient } from './prisma-client'
-import { UserEntity } from '@/domain/entities/user.entity'
+import { UserEntity } from '@/domain/entities/user/user.entity'
 
 export class UserRepository implements UserRepositoryInterface {
   async save (data: CreateUserRepositoryInputDTO): Promise<UserRepositoryOutputDTO> {

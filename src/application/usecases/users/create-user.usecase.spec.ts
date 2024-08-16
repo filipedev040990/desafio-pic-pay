@@ -1,6 +1,6 @@
 import { UserRepositoryOutputDTO, CreateUserUseCaseInputDTO } from '@/adapters/dtos/user.dto'
 import { CreateUserUseCase } from './create-user.usecase'
-import { UserEntity } from '@/domain/entities/user.entity'
+import { UserEntity } from '@/domain/entities/user/user.entity'
 import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { InvalidParamError } from '@/shared/errors'
