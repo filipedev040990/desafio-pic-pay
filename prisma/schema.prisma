@@ -23,6 +23,7 @@ model User {
   createdAt DateTime
   updatedAt DateTime
   Request   Request[]
+  Wallet    Wallet[]
 
   @@map("users")
 }
@@ -40,4 +41,17 @@ model Request {
   updatedAt DateTime
 
   @@map("requests")
+}
+
+model Wallet {
+  id        String   @id
+  User      User     @relation(fields: [userId], references: [id])
+  userId    String
+  balance   Int
+  currency  String
+  status    String
+  createdAt DateTime
+  updatedAt DateTime
+
+  @@map("wallets")
 }
