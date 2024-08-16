@@ -8,3 +8,11 @@ export type WalletBaseDTO = {
 export type BuildEntityDTO = WalletBaseDTO & {
   id: string
 }
+
+export type WalletOutputDTO = WalletBaseDTO & {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export type CreateWalletInputRepositoryDTO = WalletOutputDTO

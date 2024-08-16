@@ -2,24 +2,28 @@ import { UserRepositoryOutputDTO, CreateUserUseCaseInputDTO } from '@/adapters/d
 import { CreateUserUseCase } from './create-user.usecase'
 import { UserEntity } from '@/domain/entities/user/user.entity'
 import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
-import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
 import { InvalidParamError } from '@/shared/errors'
+import { UUIDServiceInterface } from '@/domain/interfaces/services/uuid-service.interface'
+import { WalletEntity } from '@/domain/entities/wallet/wallet.entity'
+import { UserRepositoryInterface } from '@/domain/interfaces/repositories/user-repository.interface'
 import { mock } from 'jest-mock-extended'
 import MockDate from 'mockdate'
-import { UUIDServiceInterface } from '@/domain/interfaces/services/uuid-service.interface'
+import { WalletRepositoryInterface } from '@/domain/interfaces/repositories/wallet-repository.interface'
 
 const cryptographyService = mock<CryptographyServiceInterface>()
 const repository = mock<UserRepositoryInterface>()
 const uuidService = mock<UUIDServiceInterface>()
+const walletRepository = mock<WalletRepositoryInterface>()
 
 describe('CreateUserUseCase', () => {
   let sut: CreateUserUseCase
   let input: CreateUserUseCaseInputDTO
   let newUser: UserEntity
   let fakeUser: UserRepositoryOutputDTO
+  let newWallet: WalletEntity
 
   beforeEach(() => {
-    sut = new CreateUserUseCase(cryptographyService, repository, uuidService)
+    sut = new CreateUserUseCase(cryptographyService, repository, uuidService, walletRepository)
     input = {
       name: 'João da Silva',
       type: 'consumer',
@@ -45,6 +49,15 @@ describe('CreateUserUseCase', () => {
       email: 'joao@gmail.com',
       createdAt: new Date()
     }
+    newWallet = {
+      id: 'anyId',
+      userId: 'anyId',
+      balance: 0,
+      currency: 'BRL',
+      status: 'active',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
 
     cryptographyService.encrypt.mockReturnValue('hashedValue')
     uuidService.generate.mockReturnValue('anyId')
@@ -52,6 +65,7 @@ describe('CreateUserUseCase', () => {
     repository.getByDocument.mockResolvedValue(null)
     repository.save.mockResolvedValue(fakeUser)
     jest.spyOn(UserEntity, 'build').mockReturnValue(newUser)
+    jest.spyOn(WalletEntity, 'build').mockReturnValue(newWallet)
   })
 
   beforeAll(() => {
@@ -131,6 +145,33 @@ describe('CreateUserUseCase', () => {
       document: '78965441236',
       email: 'joao@gmail.com',
       createdAt: new Date()
+    })
+  })
+
+  test('should call WalletEntity.build once and with correct values', async () => {
+    const spy = jest.spyOn(WalletEntity, 'build')
+    await sut.execute(input)
+    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalledWith({
+      id: 'anyId',
+      userId: 'anyId',
+      balance: 0,
+      currency: 'BRL',
+      status: 'active'
+    })
+  })
+
+  test('should call WalletRepository.save once and with correct values', async () => {
+    await sut.execute(input)
+    expect(walletRepository.save).toHaveBeenCalledTimes(1)
+    expect(walletRepository.save).toHaveBeenCalledWith({
+      id: 'anyId',
+      userId: 'anyId',
+      balance: 0,
+      currency: 'BRL',
+      status: 'active',
+      createdAt: new Date(),
+      updatedAt: new Date()
     })
   })
 })
