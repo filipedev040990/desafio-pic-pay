@@ -49,9 +49,9 @@
 
 Para uma plataforma como o PicPay Simplificado, onde os usuários (comuns e lojistas) possuem carteiras digitais, alguns campos comuns que você pode considerar para essas "wallets" incluem:
 
-User ID: Identificador único do usuário associado à carteira.
-
 Wallet ID: Identificador único da carteira.
+
+User ID: Identificador único do usuário associado à carteira.
 
 Balance: O saldo atual disponível na carteira.
 

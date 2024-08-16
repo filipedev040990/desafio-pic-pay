@@ -1,3 +1,4 @@
 export default {
-  CUSTOMER_TYPES: ['consumer', 'merchant']
+  CUSTOMER_TYPES: ['consumer', 'merchant'],
+  CURRENCY_TYPES: ['BRL', 'USD']
 }
