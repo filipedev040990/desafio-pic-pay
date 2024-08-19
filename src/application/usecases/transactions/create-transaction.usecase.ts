@@ -1,8 +1,7 @@
 import { CreateTransactionHistoryInputDTO, CreateTransactionInputDTO } from '@/adapters/dtos/transaction.dto'
 import { WalletOutputDTO } from '@/adapters/dtos/wallet.dto'
-import { TransactionRepositoryInterface } from '@/domain/interfaces/repositories/transaction-repository.interface'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/user-repository.interface'
-import { WalletRepositoryInterface } from '@/domain/interfaces/repositories/wallet-repository.interface'
+import { UpdateWalletBalanceInput, WalletRepositoryInterface } from '@/domain/interfaces/repositories/wallet-repository.interface'
 import { AuthorizeResponse, AuthorizeServiceInterface } from '@/domain/interfaces/services/authorize-service.interface'
 import { UUIDServiceInterface } from '@/domain/interfaces/services/uuid-service.interface'
 import { CreateTransactionUseCaseInterface } from '@/domain/interfaces/usecases/transactions/create-transaction-usecase.interface'
@@ -13,7 +12,6 @@ export class CreateTransactionUseCase implements CreateTransactionUseCaseInterfa
     private readonly userRepository: UserRepositoryInterface,
     private readonly walletRepository: WalletRepositoryInterface,
     private readonly authorizeService: AuthorizeServiceInterface,
-    private readonly transactionRepository: TransactionRepositoryInterface,
     private readonly uuidService: UUIDServiceInterface
   ) {}
 
@@ -104,12 +102,23 @@ export class CreateTransactionUseCase implements CreateTransactionUseCaseInterfa
       throw new InvalidParamError('Payee wallet not found')
     }
 
-    await Promise.all([
-      this.walletRepository.updateBalance(payerWallet.id, (payerWallet.balance - value)),
-      this.walletRepository.updateBalance(payeeWallet.id, (payeeWallet.balance + value)),
-      this.transactionRepository.save(this.makeTransactionHistoryInput(payerWallet, 'debit', value)),
-      this.transactionRepository.save(this.makeTransactionHistoryInput(payeeWallet, 'credit', value))
-    ])
+    payerWallet.balance -= value
+    payeeWallet.balance += value
+
+    const updateInput: UpdateWalletBalanceInput = {
+      payer: {
+        walletId: payerWallet.id,
+        balance: payerWallet.balance,
+        history: this.makeTransactionHistoryInput(payerWallet, 'debit', value)
+      },
+      payee: {
+        walletId: payeeWallet.id,
+        balance: payeeWallet.balance,
+        history: this.makeTransactionHistoryInput(payeeWallet, 'credit', value)
+      }
+    }
+
+    await this.walletRepository.updateBalanceAndRegisterHistory(updateInput)
   }
 
   makeTransactionHistoryInput (wallet: WalletOutputDTO, type: 'debit' | 'credit', value: number): CreateTransactionHistoryInputDTO {

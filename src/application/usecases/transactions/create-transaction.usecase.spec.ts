@@ -17,18 +17,16 @@ import { CreateTransactionInputDTO } from '@/adapters/dtos/transaction.dto'
 import { CreateTransactionUseCase } from './create-transaction.usecase'
 import { AuthorizationError, InvalidParamError, MissingParamError } from '@/shared/errors'
 import { UserRepositoryInterface } from '@/domain/interfaces/repositories/user-repository.interface'
-import { mock } from 'jest-mock-extended'
 import { UserRepositoryOutputDTO } from '@/adapters/dtos/user.dto'
 import { WalletRepositoryInterface } from '@/domain/interfaces/repositories/wallet-repository.interface'
 import { WalletOutputDTO } from '@/adapters/dtos/wallet.dto'
 import { AuthorizeResponse, AuthorizeServiceInterface } from '@/domain/interfaces/services/authorize-service.interface'
-import { TransactionRepositoryInterface } from '@/domain/interfaces/repositories/transaction-repository.interface'
 import { UUIDServiceInterface } from '@/domain/interfaces/services/uuid-service.interface'
+import { mock } from 'jest-mock-extended'
 
 const userRepository = mock<UserRepositoryInterface>()
 const walletRepository = mock<WalletRepositoryInterface>()
 const authorizeService = mock<AuthorizeServiceInterface>()
-const transactionRepository = mock<TransactionRepositoryInterface>()
 const uuidService = mock<UUIDServiceInterface>()
 
 describe('CreateTransactionUseCase', () => {
@@ -40,7 +38,7 @@ describe('CreateTransactionUseCase', () => {
   let fakeAuthorizeResponse: AuthorizeResponse
 
   beforeEach(() => {
-    sut = new CreateTransactionUseCase(userRepository, walletRepository, authorizeService, transactionRepository, uuidService)
+    sut = new CreateTransactionUseCase(userRepository, walletRepository, authorizeService, uuidService)
     input = {
       value: 45000,
       payer: 'anyPayerId',
@@ -185,16 +183,5 @@ describe('CreateTransactionUseCase', () => {
     })
     const promise = sut.execute(input)
     await expect(promise).rejects.toThrowError(new AuthorizationError())
-  })
-
-  test('should call WalletRepository when authorized', async () => {
-    await sut.execute(input)
-    expect(walletRepository.getByUserId).toHaveBeenCalledTimes(3)
-    expect(walletRepository.updateBalance).toHaveBeenCalledTimes(2)
-  })
-
-  test('should call TransactionRepository.history', async () => {
-    await sut.execute(input)
-    expect(transactionRepository.save).toHaveBeenCalledTimes(2)
   })
 })

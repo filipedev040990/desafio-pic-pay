@@ -1,5 +1,5 @@
 import { CreateWalletInputRepositoryDTO, WalletOutputDTO } from '@/adapters/dtos/wallet.dto'
-import { WalletRepositoryInterface } from '@/domain/interfaces/repositories/wallet-repository.interface'
+import { UpdateWalletBalanceInput, WalletRepositoryInterface } from '@/domain/interfaces/repositories/wallet-repository.interface'
 import { prismaClient } from './prisma-client'
 
 export class WalletRepository implements WalletRepositoryInterface {
@@ -12,14 +12,47 @@ export class WalletRepository implements WalletRepositoryInterface {
     return wallet ?? null
   }
 
-  async updateBalance (id: string, balance: number): Promise<void> {
-    await prismaClient.wallet.update({
-      where: {
-        id
-      },
-      data: {
-        balance
-      }
+  async updateBalanceAndRegisterHistory (input: UpdateWalletBalanceInput): Promise<void> {
+    await prismaClient.$transaction(async (tx) => {
+      await tx.wallet.update({
+        where: {
+          id: input.payer.walletId
+        },
+        data: {
+          balance: input.payer.balance
+        }
+      })
+
+      await tx.wallet.update({
+        where: {
+          id: input.payee.walletId
+        },
+        data: {
+          balance: input.payee.balance
+        }
+      })
+
+      await tx.transaction.create({
+        data: {
+          id: input.payer.history.id,
+          transactionType: input.payer.history.transactionType,
+          currency: input.payer.history.currency,
+          value: input.payer.history.value,
+          walletId: input.payer.history.walletId,
+          createdAt: input.payer.history.createdAt
+        }
+      })
+
+      await tx.transaction.create({
+        data: {
+          id: input.payee.history.id,
+          transactionType: input.payee.history.transactionType,
+          currency: input.payee.history.currency,
+          value: input.payee.history.value,
+          walletId: input.payee.history.walletId,
+          createdAt: input.payee.history.createdAt
+        }
+      })
     })
   }
 }
