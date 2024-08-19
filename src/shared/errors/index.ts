@@ -45,3 +45,15 @@ export class InvalidJwtError extends Error {
     this.name = 'InvalidJwtError'
   }
 }
+export class AuthorizationError extends Error {
+  constructor () {
+    super('This transaction was not authorized')
+    this.name = 'AuthorizationError'
+  }
+}
+export class HttpError extends Error {
+  constructor (url: string) {
+    super(`Error requesting, ${url}`)
+    this.name = 'HttpError'
+  }
+}

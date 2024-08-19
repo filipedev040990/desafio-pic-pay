@@ -44,14 +44,27 @@ model Request {
 }
 
 model Wallet {
-  id        String   @id
-  User      User     @relation(fields: [userId], references: [id])
-  userId    String
-  balance   Int
-  currency  String
-  status    String
-  createdAt DateTime
-  updatedAt DateTime
+  id          String        @id
+  User        User          @relation(fields: [userId], references: [id])
+  userId      String
+  balance     Int
+  currency    String
+  status      String
+  createdAt   DateTime
+  updatedAt   DateTime
+  Transaction Transaction[]
 
   @@map("wallets")
+}
+
+model Transaction {
+  id              String   @id
+  Wallet          Wallet   @relation(fields: [walletId], references: [id])
+  walletId        String
+  value           Int
+  transactionType String
+  currency        String
+  createdAt       DateTime
+
+  @@map("transactions")
 }

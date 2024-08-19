@@ -2,4 +2,6 @@ import { CreateWalletInputRepositoryDTO, WalletOutputDTO } from '@/adapters/dtos
 
 export interface WalletRepositoryInterface {
   save: (input: CreateWalletInputRepositoryDTO) => Promise<WalletOutputDTO>
+  getByUserId: (userId: string) => Promise<WalletOutputDTO | null>
+  updateBalance: (id: string, balance: number) => Promise<void>
 }

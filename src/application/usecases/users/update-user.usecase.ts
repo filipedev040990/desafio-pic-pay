@@ -1,5 +1,5 @@
 import { UpdateUserRepositoryInputDTO, UpdateUserUseCaseInputDTO, UserOutputDTO } from '@/adapters/dtos/user.dto'
-import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
+import { UserRepositoryInterface } from '@/domain/interfaces/repositories/user-repository.interface'
 import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
 import { UpdateUserUseCaseInterface } from '@/domain/interfaces/usecases/users/update-user-usecase.interface'
 import { InvalidParamError, MissingParamError } from '@/shared/errors'

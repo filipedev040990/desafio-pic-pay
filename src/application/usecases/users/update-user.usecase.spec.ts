@@ -1,7 +1,7 @@
 import { UpdateUserUseCaseInputDTO, UserRepositoryOutputDTO } from '@/adapters/dtos/user.dto'
 import { UpdateUserUseCase } from './update-user.usecase'
 import { InvalidParamError, MissingParamError } from '@/shared/errors'
-import { UserRepositoryInterface } from '@/domain/interfaces/repositories/users/create-user-repository.interface'
+import { UserRepositoryInterface } from '@/domain/interfaces/repositories/user-repository.interface'
 import { CryptographyServiceInterface } from '@/domain/interfaces/services/cryptography-service.interface'
 import { mock } from 'jest-mock-extended'
 import MockDate from 'mockdate'
