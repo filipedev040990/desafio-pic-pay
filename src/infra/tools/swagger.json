@@ -16,7 +16,10 @@
 	"tags": [
 		{
 			"name": "Users"
-		}
+		},
+    {
+      "name": "Transfer"
+    }
 	],
 	"paths": {
 		"/user": {
@@ -250,85 +253,74 @@
 					}
         }
       }
+    },
+    "/transfer": {
+      	"post": {
+				"tags": [
+					"Transfer"
+				],
+				"operationId": "transfer-identifier",
+				"summary": "Realiza transferência",
+				"description": "Rota para realizar a transferência de valores.",
+				"requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "example": 5000,
+                    "description": "É o valor multiplicado por 100. No exemplo acima estamos transferindo R$50,00"
+                  },
+                  "payer": {
+                    "type": "string",
+                    "example": "306b7010-35b4-4a16-ae00-224515e64b30",
+                    "description": "Pagador"
+                  },
+                  "payee": {
+                    "type": "string",
+                    "example": "42adf6d4-8117-4eb3-8e0f-f2b3c1b26948",
+                    "description": "Recebedor"
+                  }
+                }
+              }
+            }
+          }
+        },
+				"responses": {
+					"204": {
+						"description": "Sucesso"
+					},
+          "400": {
+            "description": "Erro de validação da solicitação",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "MissingParamError",
+                  "message": "Missing param: value"
+                }
+              }
+            }
+          },
+					"500": {
+						"description": "Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "error"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
     }
-    // "/route": {
-    //   "get": {
-    //     "tags": [
-    //       "Example"
-    //     ],
-    //     "operationId": "get-all-example-identifier",
-    //     "summary": "Example",
-    //     "description": "Example",
-    //     "parameters": [
-    //       {
-    //         "in": "path",
-    //         "name": "id",
-    //         "required": true,
-    //         "schema": {
-    //           "type": "string",
-    //           "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-    //         }
-    //       }
-    //     ],
-    //     "responses": {
-    //       "200": {
-    //         "description": "Sucesso",
-    //         "content": {
-    //           "application/json": {
-    //             "schema": {
-    //               "type": "array",
-    //               "items": {
-    //                 "oneOf": [{
-    //                   "type": "object",
-    //                   "properties": {
-    //                     "test": {
-    //                       "type": "string",
-    //                       "example": "3b228995-20db-4558-8574-054c2e6ca0cb"
-    //                     }
-    //                   }
-    //                 },{
-    //                   "type": "object",
-    //                   "properties": {
-    //                     "test": {
-    //                       "type": "string",
-    //                       "example": "d4a2fa1d-8428-40ca-bfa1-0326e2a97ad2"
-    //                     }
-    //                   }
-    //                 }]
-    //               }
-    //             }
-    //           }
-    //         }
-    //       },
-    //       "400": {
-    //         "description": "Erro de validação da solicitação",
-    //         "content": {
-    //           "application/json": {
-    //             "example": {
-    //               "error": "InvalidParamError",
-    //               "message": "Invalid param: id"
-    //             }
-    //           }
-    //         }
-    //       },
-    //       "500": {
-    //         "description": "Error",
-    //         "content": {
-    //           "application/json": {
-    //             "schema": {
-    //               "type": "object",
-    //               "properties": {
-    //                 "status": {
-    //                   "type": "string",
-    //                   "example": "error"
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
 	}
 }
